@@ -7,17 +7,24 @@ const BOOK_ITEMID = "itemId";
 
 const addBook = () => {
   const uncompletedBook = document.getElementById(UNCOMPLETED_BOOK_ID);
+  const completedbook = document.getElementById(COMPLETED_BOOK_ID);
   const inputTitle = document.getElementById('title').value;
   const inputAuthor = document.getElementById('author').value;
   const inputYear = document.getElementById('year').value;
-  
-  const book = makeBook(inputTitle, inputAuthor, inputYear, false)
-  const bookObject = composeBookObject(inputTitle, inputAuthor, inputYear, false)
+  const checkbox = document.getElementById("checkbox").checked;
+
+  const book = makeBook(inputTitle, inputAuthor, inputYear, checkbox)
+  const bookObject = composeBookObject(inputTitle, inputAuthor, inputYear, checkbox)
   
   book[BOOK_ITEMID] = bookObject.id;
   books.push(bookObject);
   
-  uncompletedBook.append(book)
+  if (checkbox) {
+    completedbook.append(book)
+  } else {
+    uncompletedBook.append(book)
+  }
+  
   updateDataToStorage();
 }
 
